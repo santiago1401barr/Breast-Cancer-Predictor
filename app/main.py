@@ -167,9 +167,8 @@ def main():
       initial_sidebar_state = "expanded"
   )
 
-  add_sidebar()
-
-
+  input_data = add_sidebar()
+  
   with st.container():
     st.title("Breast Cancer App Predictor")
     st.write("Please, connect this app to your cytology lab to assist in the diagnosis of breast cancer from a tissue sample. Based on the measurements provided by your cytosis lab, this app predicts if a breast lump is benign or cancerous using a machine learning model. You may also manually update measurements by using the sliders in the sidebar.")
