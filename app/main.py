@@ -6,12 +6,14 @@ import numpy as np
 
 
 def get_clean_data():
-  data = pd.read_csv('data.csv', delimiter =',')
-  data = data.drop(data.columns[0],axis = 1)
-  data = data.drop('Unnamed: 32', axis=1)
-  data["diagnosis"] = data["diagnosis"].map({ "M" : 1, "B": 0 })
-
+  data = pd.read_csv("data/data.csv")
+  
+  data = data.drop(['Unnamed: 32', 'id'], axis=1)
+  
+  data['diagnosis'] = data['diagnosis'].map({ 'M': 1, 'B': 0 })
+  
   return data
+
 
 def add_sidebar():
   st.sidebar.header("Cell Nuclei Measurements")
@@ -62,6 +64,7 @@ def add_sidebar():
     )
     
   return input_dict
+
 
 def get_scaled_values(input_dict):
   data = get_clean_data()
@@ -159,20 +162,25 @@ def add_predictions(input_data):
   
   st.write("This app can assist medical professionals in making a diagnosis, but should not be used as a substitute for a professional diagnosis.")
 
+
+
 def main():
   st.set_page_config(
-      page_title = "Breast Cancer Predictor",
-      page_icon = "female-doctor:",
-      layout = "wide",
-      initial_sidebar_state = "expanded"
+    page_title="Breast Cancer Predictor",
+    page_icon=":female-doctor:",
+    layout="wide",
+    initial_sidebar_state="expanded"
   )
-
+  
+  with open("assets/style.css") as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
+  
   input_data = add_sidebar()
   
   with st.container():
-    st.title("Breast Cancer App Predictor")
-    st.write("Please, connect this app to your cytology lab to assist in the diagnosis of breast cancer from a tissue sample. Based on the measurements provided by your cytosis lab, this app predicts if a breast lump is benign or cancerous using a machine learning model. You may also manually update measurements by using the sliders in the sidebar.")
-
+    st.title("Breast Cancer Predictor")
+    st.write("Please connect this app to your cytology lab to help diagnose breast cancer form your tissue sample. This app predicts using a machine learning model whether a breast mass is benign or malignant based on the measurements it receives from your cytosis lab. You can also update the measurements by hand using the sliders in the sidebar. ")
+  
   col1, col2 = st.columns([4,1])
   
   with col1:
@@ -182,5 +190,6 @@ def main():
     add_predictions(input_data)
 
 
+ 
 if __name__ == '__main__':
   main()
