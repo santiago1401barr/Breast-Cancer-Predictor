@@ -180,4 +180,7 @@ def main():
     st.plotly_chart(radar_chart)
   with col2:
     add_predictions(input_data)
-  
+
+
+if __name__ == '__main__':
+  main()
